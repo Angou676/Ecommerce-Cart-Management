@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeItem, incrementItem, decrementItem } from "../Store/index";
+import { removeItem, incrementItem, decrementItem, emptyCart } from "../Store/index";
 import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
@@ -28,6 +28,10 @@ const CheckoutPage = () => {
     return cartList.reduce((total, item) => total + item.price * item.count, 0);
   };
 
+  const placeOrderHandler = () => {
+    navigate(`/confirm-order`);
+    dispatch(emptyCart());
+  };
   return (
     <div className="mt-16 p-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
@@ -95,7 +99,10 @@ const CheckoutPage = () => {
             </div>
           </div>
 
-          <button className="bg-orange-500 px-8 py-2 rounded-lg font-semibold text-white mt-8">
+          <button
+            className="bg-orange-500 px-8 py-2 rounded-lg font-semibold text-white mt-8"
+            onClick={placeOrderHandler}
+          >
             Place order
           </button>
         </section>
